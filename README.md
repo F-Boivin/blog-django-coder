@@ -109,15 +109,36 @@ blog-django-coder/
 └── templates/             # base.html (bloques title/content/scripts) + páginas
 ```
 
-## Notas de despliegue
+## Despliegue (Railway)
 
-`settings.py` lee `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` y `DJANGO_ALLOWED_HOSTS` de variables de entorno (con defaults de desarrollo). Para producción:
+`settings.py` lee `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` y `DJANGO_ALLOWED_HOSTS` de variables de entorno (con defaults de desarrollo), por lo que el proyecto está listo para producción sin cambios de código.
 
-```bash
-export DJANGO_SECRET_KEY="<clave-segura-generada>"
-export DJANGO_DEBUG="False"
-export DJANGO_ALLOWED_HOSTS="tudominio.pythonanywhere.com"
-python manage.py collectstatic
-```
+### Cómo se desplegaría en Railway
 
-El proyecto está pensado para desplegarse en PythonAnywhere (gratuito): clonar el repo, crear el venv, configurar la web app con el WSGI apuntando a `blog_project.settings` y mapear `/static/` a `staticfiles/`.
+[Railway](https://railway.app) despliega aplicaciones directamente desde un repositorio de GitHub. El proceso sería:
+
+1. **Conectar el repo:** en Railway, *New Project → Deploy from GitHub repo* y seleccionar `blog-django-coder`. Railway detecta que es un proyecto Python.
+2. **Variables de entorno:** en la pestaña *Variables*, definir:
+   ```
+   DJANGO_SECRET_KEY = <clave-segura-generada>
+   DJANGO_DEBUG = False
+   DJANGO_ALLOWED_HOSTS = <subdominio>.up.railway.app
+   ```
+3. **Comando de arranque:** agregar un `Procfile` o configurar el *Start Command*:
+   ```
+   python manage.py migrate && python manage.py crear_grupos && gunicorn blog_project.wsgi
+   ```
+   (requiere agregar `gunicorn` a `requirements.txt`).
+4. **Archivos estáticos:** integrar `whitenoise` para servir los estáticos en producción (middleware en `settings.py`) y ejecutar `collectstatic` en el build.
+5. **Base de datos:** Railway ofrece PostgreSQL con un clic; bastaría con leer `DATABASE_URL` (con `dj-database-url`) en lugar de SQLite.
+6. **Dominio:** Railway genera una URL pública `https://<subdominio>.up.railway.app`.
+
+### Costos, ventajas y limitaciones
+
+| Aspecto | Detalle |
+|---|---|
+| **Costo** | No tiene capa gratuita permanente: ofrece un *trial* de US$5 de crédito; el plan Hobby cuesta ~US$5/mes y se factura por uso de recursos (RAM/CPU/tiempo activo). |
+| **Ventajas** | Deploy automático en cada `git push`, PostgreSQL gestionada, variables de entorno y logs en tiempo real, muy buena experiencia de desarrollo. |
+| **Limitaciones** | El costo mensual es la principal; para un proyecto de portfolio de baja demanda, alternativas como PythonAnywhere (gratis, sin tarjeta) o Render (gratis, pero la app se duerme tras inactividad) pueden ser más convenientes. |
+
+> En esta entrega el despliegue se documenta de forma teórica (no se realizó un deploy productivo). El código ya está preparado para ello mediante variables de entorno y `STATIC_ROOT` configurado.
