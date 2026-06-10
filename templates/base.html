@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Bloque 1: título — cada página lo sobrescribe #}
+    <title>{% block title %}{{ site_name }}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            {# site_name y menu_items vienen del CONTEXT PROCESSOR (sin pasarlos en cada vista) #}
+            <a class="navbar-brand" href="{% url 'posts:post-list' %}">✍️ {{ site_name }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav me-auto">
+                    {% for item in menu_items %}
+                        <li class="nav-item"><a class="nav-link" href="{% url item.url_name %}">{{ item.nombre }}</a></li>
+                    {% endfor %}
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'posts:post-create' %}">+ Nueva publicación</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:perfil' %}">Mi perfil ({{ user.username }})</a></li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'usuarios:logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link nav-link">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:login' %}">Iniciar sesión</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:registro' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container flex-grow-1">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {# Bloque 2: contenido principal #}
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Include parcial: el footer vive en su propio archivo (M11-U3) #}
+    {% include 'includes/footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {# Bloque 3: scripts — las páginas pueden agregar JS propio #}
+    {% block scripts %}{% endblock %}
+</body>
+</html>

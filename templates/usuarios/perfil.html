@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil — {{ site_name }}{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <h1>Mi perfil</h1>
+            <p class="text-muted">
+                Usuario: <strong>{{ user.username }}</strong> · Email: {{ user.email|default:"—" }}
+                · Miembro desde {{ user.date_joined|date:"d/m/Y" }}
+            </p>
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}<div class="text-danger">{{ field.errors }}</div>{% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+
+            <h2 class="mt-5 h5">Mis publicaciones</h2>
+            {% if user.posts.all %}
+                <ul>
+                    {% for post in user.posts.all %}
+                        <li><a href="{% url 'posts:post-detail' post.pk %}">{{ post.title }}</a> ({{ post.created_at|date:"d/m/Y" }})</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">Todavía no escribiste ninguna. <a href="{% url 'posts:post-create' %}">¡Creá la primera!</a></p>
+            {% endif %}
+        </div>
+    </div>
+
+    <style>
+        input[type="text"], input[type="date"], textarea {
+            display: block; width: 100%; padding: 0.375rem 0.75rem;
+            border: 1px solid #ced4da; border-radius: 0.375rem;
+        }
+    </style>
+{% endblock %}

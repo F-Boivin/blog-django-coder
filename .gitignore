@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Base de datos local (se regenera con migrate + loaddata)
+db.sqlite3
+db.sqlite3-journal
+
+# Archivos estáticos recolectados (se regeneran con collectstatic)
+staticfiles/
+
+# Secretos y configuración local
+.env
+local_settings.py
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

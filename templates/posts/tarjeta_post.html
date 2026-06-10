@@ -1,0 +1,23 @@
+{% load blog_extras %}
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title">
+                <a href="{% url 'posts:post-detail' post.pk %}">{{ post.title }}</a>
+            </h5>
+            <small class="text-muted">{{ post.created_at|date:"d/m/Y" }}</small>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted">
+            por {{ post.author.username }} · <span class="badge bg-secondary">{{ post.get_categoria_display }}</span>
+        </h6>
+        {# Filtro personalizado: resumen del contenido #}
+        <p class="card-text">{{ post.content|resumen:140 }}</p>
+        <a href="{% url 'posts:post-detail' post.pk %}" class="btn btn-sm btn-outline-info">Leer más</a>
+        {% if puede_editar %}
+            <a href="{% url 'posts:post-update' post.pk %}" class="btn btn-sm btn-outline-warning">Editar</a>
+        {% endif %}
+        {% if puede_borrar %}
+            <a href="{% url 'posts:post-delete' post.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+        {% endif %}
+    </div>
+</div>

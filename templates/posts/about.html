@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Acerca de — {{ site_name }}{% endblock %}
+
+{% block content %}
+    <h1>Acerca de {{ site_name }}</h1>
+    <p class="lead">
+        {{ site_name }} es el proyecto final del curso de Python de Coderhouse:
+        un blog construido con Django que integra los conceptos aprendidos a lo
+        largo de la cursada.
+    </p>
+
+    <h2 class="mt-4">Qué incluye</h2>
+    <ul>
+        <li>Publicaciones con categorías, búsqueda dinámica y paginación.</li>
+        <li>Registro de usuarios, inicio de sesión y perfiles editables.</li>
+        <li>Sistema de permisos con grupos: los moderadores pueden gestionar contenido de cualquier autor.</li>
+        <li>Panel de administración personalizado para la gestión integral del sitio.</li>
+    </ul>
+
+    <h2 class="mt-4">Tecnologías</h2>
+    <p>Python · Django · SQLite · Bootstrap 5</p>
+
+    <a href="{% url 'posts:contacto' %}" class="btn btn-primary mt-3">¿Consultas? Escribinos</a>
+{% endblock %}

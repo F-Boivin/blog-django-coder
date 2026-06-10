@@ -1,0 +1,50 @@
+[
+  {
+    "model": "posts.post",
+    "pk": 1,
+    "fields": {
+      "title": "Bienvenidos al Blog Coder",
+      "content": "Este es el primer post del blog, creado como dato de ejemplo. El proyecto integra herencia de templates, búsqueda dinámica, permisos por grupos y un panel de administración personalizado.",
+      "categoria": "noticias",
+      "author": 1,
+      "created_at": "2026-06-01T10:00:00Z",
+      "updated_at": "2026-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 2,
+    "fields": {
+      "title": "Introducción a Django para principiantes",
+      "content": "Django es un framework web de Python que permite construir aplicaciones robustas rápidamente. En este tutorial repasamos el patrón MTV: modelos, templates y vistas, y cómo se conectan mediante URLs.",
+      "categoria": "tutorial",
+      "author": 1,
+      "created_at": "2026-06-02T12:30:00Z",
+      "updated_at": "2026-06-02T12:30:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 3,
+    "fields": {
+      "title": "Por qué me gusta el ORM de Django",
+      "content": "Opinión personal: el ORM permite escribir consultas expresivas sin SQL, y con select_related y prefetch_related se evita el problema N+1. La curva de aprendizaje vale la pena.",
+      "categoria": "opinion",
+      "author": 1,
+      "created_at": "2026-06-03T09:15:00Z",
+      "updated_at": "2026-06-03T09:15:00Z"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 4,
+    "fields": {
+      "title": "Novedades de Python en 2026",
+      "content": "Repaso de las novedades del ecosistema Python: mejoras de rendimiento del intérprete, tipado gradual cada vez más adoptado y nuevas herramientas de packaging.",
+      "categoria": "tecnologia",
+      "author": 1,
+      "created_at": "2026-06-04T18:45:00Z",
+      "updated_at": "2026-06-04T18:45:00Z"
+    }
+  }
+]
