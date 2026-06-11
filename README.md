@@ -157,3 +157,28 @@ La aplicación está **desplegada y operativa** en https://feboivin.pythonanywhe
 | **Limitaciones** | El costo mensual es la principal; para un proyecto de portfolio de baja demanda, alternativas como PythonAnywhere (gratis, sin tarjeta) o Render (gratis, pero la app se duerme tras inactividad) pueden ser más convenientes. |
 
 > Railway se evaluó como alternativa pero se descartó por la falta de capa gratuita permanente. El deploy productivo se realizó en PythonAnywhere (ver sección anterior), cuya URL pública está operativa.
+
+
+## Evaluación del proyecto (curso Coderhouse)
+
+El proyecto se entregó en tres instancias, todas aprobadas:
+
+| Entrega | Qué se evaluó | Nota |
+|---|---|---|
+| **Módulo 11 — Proyecto final (repositorio)** | Código completo: templates con herencia, búsqueda dinámica, admin personalizado, grupos y permisos aplicados, documentación y tests | **94%** |
+| **Módulo 12 — Informe final** | Revisión del alcance contra el checklist y los criterios de aceptación | **94%** |
+| **Módulo 13 — Entrega final (presentación)** | Presentación del proyecto con evidencia visual, instrucciones y deploy en producción | **97%** |
+
+### Devolución destacada del corrector (M13)
+
+> "La presentación es excelente y demuestra un dominio integral del framework Django. El estudiante no solo cumplió con los requisitos básicos de un blog (CRUD y autenticación), sino que implementó una arquitectura robusta con perfiles automáticos, permisos personalizados y una suite de pruebas, culminando en un despliegue exitoso en producción."
+
+**Puntos fuertes señalados:** despliegue funcional documentado con evidencia · explicación técnica de señales de Django, Q objects y mixins · 14 tests automatizados · guía de ejecución exhaustiva.
+
+### Mejoras sugeridas (roadmap a futuro)
+
+- Diagrama de base de datos (ERD) para visualizar la relación entre modelos.
+- Sistema de comentarios con AJAX para interactividad sin recargar la página.
+- Django REST Framework si se desacopla el frontend.
+- Envío de correos reales para recuperación de contraseñas.
+- Migración de SQLite a PostgreSQL para uso en portfolio profesional.
